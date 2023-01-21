@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.lazybeast'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '17'
 
 configurations {
@@ -33,6 +33,16 @@ dependencies {
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
+}
+
+jar{
+	manifest {
+		attributes(
+				'Class-Path': configurations.detachedConfiguration().collect { it.getName() }.join(' '),
+				'Main-Class': 'com.lazybeast.springSecurity.SpringSecurityApplication'
+		)
+	}
+	baseName 'springSecurity'
 }
 
 tasks.named('test') {
